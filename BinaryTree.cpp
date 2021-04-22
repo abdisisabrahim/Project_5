@@ -4,18 +4,19 @@
 
 #include "BinaryTree.h"
 #include <iostream>
+#include <string>
 
 using namespace std;
 
-void BinaryTree::insertNode(int num)
+void BinaryTree::insertNode(string seq)
 {
     TreeNode *newNode = nullptr; // Pointer to a new node.
 
     // Create a new node and store num in it.
     newNode = new TreeNode;
-    newNode->value = string;
+    newNode->value = seq;
     newNode->left = newNode->right = nullptr;
-
+    newNode->count = 1;
     // Insert the node.
     insert(root, newNode);
 }
@@ -23,11 +24,11 @@ void BinaryTree::insertNode(int num)
 void BinaryTree::insert(TreeNode *&nodePtr, TreeNode *&newNode)
 {
     if (nodePtr == nullptr)
-    nodePtr = newNode; // Insert the node.
+        nodePtr = newNode; // Insert the node.
     else if (newNode->value < nodePtr->value)
-    insert(nodePtr->left, newNode); // Search the left branch.
+        insert(nodePtr->left, newNode); // Search the left branch.
     else
-    insert(nodePtr->right, newNode); // Search the right branch.
+        insert(nodePtr->right, newNode); // Search the right branch.
 }
 
 void BinaryTree::displayInOrder(TreeNode *nodePtr) const
@@ -35,7 +36,7 @@ void BinaryTree::displayInOrder(TreeNode *nodePtr) const
     if (nodePtr)
     {
         displayInOrder(nodePtr->left);
-        cout << nodePtr->value << endl;
+        cout << nodePtr->value << " " << nodePtr->count << endl;
         displayInOrder(nodePtr->right);
     }
 }
@@ -60,15 +61,15 @@ void BinaryTree::displayPostOrder(TreeNode *nodePtr) const
     }
 }
 
-bool BinaryTree::searchNode(int num)
+bool BinaryTree::searchNode(string seq)
 {
     TreeNode *nodePtr = root;
 
     while (nodePtr)
     {
-        if (nodePtr->value == num)
+        if (nodePtr->value == seq)
             return true;
-        else if (num < nodePtr->value)
+        else if (seq < nodePtr->value)
             nodePtr = nodePtr->left;
         else
             nodePtr = nodePtr->right;
@@ -77,17 +78,17 @@ bool BinaryTree::searchNode(int num)
     return false;
 }
 
-void BinaryTree::remove(int num)
+void BinaryTree::remove(string seq)
 {
-    deleteNode(num, root);
+    deleteNode(seq, root);
 }
 
-void BinaryTree::deleteNode(int num, TreeNode *&nodePtr)
+void BinaryTree::deleteNode(string seq, TreeNode *&nodePtr)
 {
-    if (num < nodePtr->value)
-        deleteNode(num, nodePtr->left);
-    else if (num > nodePtr->value)
-        deleteNode(num, nodePtr->right);
+    if (seq < nodePtr->value)
+        deleteNode(seq, nodePtr->left);
+    else if (seq > nodePtr->value)
+        deleteNode(seq, nodePtr->right);
     else
         makeDeletion(nodePtr);
 }
@@ -126,5 +127,18 @@ void BinaryTree::makeDeletion(TreeNode *&nodePtr)
         // Reattach the right subtree.
         nodePtr = nodePtr->right;
         delete tempNodePtr;
+    }
+}
+void BinaryTree::destroySubTree(TreeNode *nodePtr)
+{
+    if (nodePtr)
+    {
+        if (nodePtr->left)
+            destroySubTree(nodePtr->left);
+
+        if (nodePtr->right)
+            destroySubTree(nodePtr->right);
+
+        delete nodePtr;
     }
 }

@@ -2,8 +2,9 @@
 // Created by Abdul Aziz Ibrahim on 4/20/21.
 //
 
-#ifndef PROJECT_5_BINARYTREE_H
-#define PROJECT_5_BINARYTREE_H
+#ifndef BINARYTREE_H
+#define BINARYTREE_H
+#include <string>
 using namespace std;
 
 class BinaryTree {
@@ -19,7 +20,7 @@ class BinaryTree {
 
         void insert(TreeNode *&, TreeNode*&);
         void destroySubTree(TreeNode *);
-        void deleteNode(int, TreeNode *&);
+        void deleteNode(string, TreeNode *&);
         void makeDeletion(TreeNode *&);
         void displayInOrder(TreeNode* ) const;
         void displayPreOrder(TreeNode *) const;
@@ -35,9 +36,9 @@ class BinaryTree {
         { destroySubTree(root); }
 
         // Binary tree operations
-        void insertNode(int);
-        bool searchNode(int);
-        void remove(int);
+        void insertNode(string);
+        bool searchNode(string);
+        void remove(string);
 
 
         void displayInOrder() const
