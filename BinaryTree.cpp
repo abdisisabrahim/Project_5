@@ -10,7 +10,7 @@ void BinaryTree::insertNode(int num)
 
     // Create a new node and store num in it.
     newNode = new TreeNode;
-    newNode->value = num;
+    newNode->value = string;
     newNode->left = newNode->right = nullptr;
 
     // Insert the node.
